@@ -147,7 +147,7 @@ export const LoginScreen = () => {
                 >
                     <div className="flex flex-col w-full items-center gap-4">
                         <div className="relative self-stretch mt-[-1.00px] font-bold text-neutral-900 text-2xl text-center">
-                            ANGINAT ADMIN
+                            ANGINAT
                         </div>
 
                         <div className="flex flex-col items-center gap-8 relative self-stretch w-full">
@@ -233,7 +233,7 @@ export const LoginScreen = () => {
                                         />
                                     </div>
 
-                                    <div className="inline-flex items-center gap-1 relative justify-center w-full">
+                                    <div className="inline-flex items-center gap-1 relative justify-left w-full">
                                         <div className="relative w-fit font-normal text-zinc-600 text-sm whitespace-nowrap">
                                             Don't have an account?
                                         </div>
