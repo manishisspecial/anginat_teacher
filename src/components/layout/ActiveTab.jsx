@@ -35,9 +35,9 @@ export default function ActiveTab() {
       return 'academic'
     }
     
-    // For leads routes - highlight if path starts with /leads
-    if (pathname.startsWith('/leads')) {
-      return 'leads'
+    // For Chat routes - highlight if path starts with /chat
+    if (pathname.startsWith('/chat')) {
+      return 'chat'
     }
     
     // For users routes - highlight if path starts with /users

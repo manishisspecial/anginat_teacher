@@ -66,6 +66,10 @@ export const AuthProvider = ({ children }) => {
 
   // Initialize auth state from localStorage
   useEffect(() => {
+    // For development, you can comment out this section to force login every time
+    // or clear localStorage to reset the auth state
+    localStorage.removeItem('user'); // Uncomment this line to force login
+    
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       try {

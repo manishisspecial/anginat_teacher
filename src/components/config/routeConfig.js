@@ -384,35 +384,35 @@ export const ROUTE_CONFIG = {
         ]
     },
 
-    // Leads routes
-    '/leads': {
-        title: 'All Leads',
-        icon: 'leads',
+    // Chat routes
+    '/chat': {
+        title: 'All Chats',
+        icon: 'chat',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Leads', path: '/leads', active: false, isBreadcrumb: false },
-            { label: 'All Leads', path: '/leads', active: true, isBreadcrumb: true }
+            { label: 'Chat', path: '/chat', active: false, isBreadcrumb: false },
+            { label: 'All Chats', path: '/chat', active: true, isBreadcrumb: true }
         ]
     },
-    '/leads/trash': {
-        title: 'Trash Leads',
-        icon: 'trash',
+    '/chat/archived': {
+        title: 'Archived Chats',
+        icon: 'archive',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Leads', path: '/leads', active: false, isBreadcrumb: false },
-            { label: 'Trash Leads', path: '/leads/trash', active: true, isBreadcrumb: true }
+            { label: 'Chat', path: '/chat', active: false, isBreadcrumb: false },
+            { label: 'Archived Chats', path: '/chat/archived', active: true, isBreadcrumb: true }
         ]
     },
-    '/leads/edit': {
-        title: 'Edit Lead',
+    '/chat/edit': {
+        title: 'Edit Chat',
         icon: 'edit',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Leads', path: '/leads', active: false, isBreadcrumb: true },
-            { label: 'Edit Lead', path: '/leads/edit', active: true, isBreadcrumb: true }
+            { label: 'Chat', path: '/chat', active: false, isBreadcrumb: true },
+            { label: 'Edit Chat', path: '/chat/edit', active: true, isBreadcrumb: true }
         ]
     }
 }
@@ -609,19 +609,19 @@ export const NAVIGATION_OPTIONS = {
     
     ],
 
-    // Leads navigation options
-    leads: [
+    // Chat navigation options
+    chat: [
         {
-            text: "All Leads",
-            path: "/leads",
-            icon: "leads",
+            text: "All Chats",
+            path: "/chat",
+            icon: "chat",
             disabled: false,
             hidden: false
         },
         {
-            text: "Trash Leads",
-            path: "/leads/trash",
-            icon: "trash",
+            text: "Archived Chats",
+            path: "/chat/archived",
+            icon: "archive",
             disabled: false,
             hidden: false
         }
@@ -638,7 +638,7 @@ export const NAVIGATION_TABS = [
     { id: "reports", name: "Reports", hasDropdown: true, disabled: false, hidden: false },
     { id: "announcements", name: "Announcements", hasDropdown: true, disabled: false, hidden: false },
     { id: "accounts", name: "Accounts", hasDropdown: true, disabled: true, hidden: true },
-    { id: "leads", name: "Leads", hasDropdown: true, disabled: false, hidden: false },
+    { id: "chat", name: "Chat", hasDropdown: true, disabled: false, hidden: false },
 ]
 
 /**
@@ -653,7 +653,7 @@ export const NAVIGATION_TABS = [
  */
 export function getNavigationType(pathname) {
     if (pathname.startsWith('/academic')) return 'academic'
-    if (pathname.startsWith('/leads')) return 'leads'
+    if (pathname.startsWith('/chat')) return 'chat'
     if (pathname.startsWith('/users')) return 'users'
     if (pathname.startsWith('/reports')) return 'reports'
     if (pathname.startsWith('/announcements')) return 'announcements'
@@ -682,5 +682,5 @@ export function shouldShowNavigation(pathname) {
 
 // Legacy exports for backward compatibility (you can remove these once everything is updated)
 export const ACADEMIC_DROPDOWN_OPTIONS = NAVIGATION_OPTIONS.academic
-export const LEADS_DROPDOWN_OPTIONS = NAVIGATION_OPTIONS.leads
+export const CHAT_DROPDOWN_OPTIONS = NAVIGATION_OPTIONS.chat
 export const USERS_DROPDOWN_OPTIONS = NAVIGATION_OPTIONS.users

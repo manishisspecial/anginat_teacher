@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Input from "@/components/reusableComponents/InputField/inputField";
 import Button from "@/components/reusableComponents/buttons/Button";
 
-export const LoginScreen = () => {
+export default function LoginPage() {
     const router = useRouter();
     const { login, loading, error: authError, isAuthenticated } = useAuth();
 
@@ -255,6 +255,4 @@ export const LoginScreen = () => {
             </div>
         </div>
     );
-};
-
-export default LoginScreen;
+}

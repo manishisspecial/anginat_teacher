@@ -11,9 +11,13 @@ export default function Topbar() {
   // State for dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false)
   const [showNotifications, setShowNotifications] = useState(false)
+  const [showMobileSearch, setShowMobileSearch] = useState(false)
 
   // State for notifications
   const [notifications, setNotifications] = useState([])
+  
+  // State for search
+  const [searchQuery, setSearchQuery] = useState("")
 
   // Refs for handling clicks outside
   const dropdownRef = useRef(null)
@@ -64,6 +68,20 @@ export default function Topbar() {
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications)
     if (showDropdown) setShowDropdown(false)
+  }
+
+  // Search handlers
+  const handleSearchChange = (value) => {
+    setSearchQuery(value)
+  }
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      // Implement search functionality here
+      console.log('Searching for:', searchQuery)
+      // You can navigate to a search results page or show a modal
+      // For now, we'll just log the search query
+    }
   }
 
   // Utility functions
@@ -117,15 +135,19 @@ export default function Topbar() {
           </div>
         </div>
 
-        {/* Search bar - disabled for now */}
-        <div className="hidden md:flex w-full max-w-[385px] justify-around gap-1 px-4 py-2 self-stretch bg-white rounded-[100px] border border-gray-300 opacity-60 cursor-not-allowed">
+        {/* Search bar - enabled */}
+        <div className="hidden md:flex w-full max-w-[385px] justify-around gap-1 px-4 py-2 self-stretch bg-white rounded-[100px] border border-gray-300 hover:border-gray-400 transition-colors">
           <input
             type="text"
-            placeholder="Search functionality coming soon..."
-            className="relative flex-1 text-gray-500 text-sm bg-white outline-none cursor-not-allowed"
-            disabled
+            placeholder="Search courses, users, reports..."
+            className="relative flex-1 text-gray-700 text-sm bg-white outline-none"
+            onChange={(e) => handleSearchChange(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           />
-          <div className="w-5 h-5 flex items-center justify-center text-gray-400">
+          <div 
+            className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer transition-colors"
+            onClick={handleSearch}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -133,14 +155,43 @@ export default function Topbar() {
           </div>
         </div>
 
-        {/* Mobile search icon - disabled */}
+        {/* Mobile search icon - enabled */}
         <div className="md:hidden">
-          <div className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center opacity-60 cursor-not-allowed">
+          <div 
+            className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200 cursor-pointer transition-colors"
+            onClick={() => setShowMobileSearch(!showMobileSearch)}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </div>
+          
+          {/* Mobile search input */}
+          {showMobileSearch && (
+            <div className="absolute top-full left-0 right-0 mt-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Search courses, users, reports..."
+                  className="flex-1 text-gray-700 text-sm bg-white outline-none"
+                  value={searchQuery}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                  autoFocus
+                />
+                <button
+                  onClick={handleSearch}
+                  className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* User section */}
