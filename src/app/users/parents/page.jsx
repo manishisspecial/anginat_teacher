@@ -47,12 +47,6 @@ const ParentsPage = () => {
         onClick={handleExport}
         disabled={isSubmitting}
       />
-      <Button
-        text="Add Parent"
-        type="Primary"
-        onClick={handleAddParent}
-        disabled={isSubmitting}
-      />
     </div>
   );
 

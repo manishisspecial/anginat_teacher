@@ -47,12 +47,6 @@ const StudentsPage = () => {
         onClick={handleExport}
         disabled={isSubmitting}
       />
-      <Button
-        text="Add Student"
-        type="Primary"
-        onClick={handleAddStudent}
-        disabled={isSubmitting}
-      />
     </div>
   );
 

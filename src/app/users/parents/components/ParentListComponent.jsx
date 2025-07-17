@@ -6,17 +6,17 @@ import { parentsData, tableHeaders } from './mockData/mockData';
 const ParentListComponent = () => {
   const router = useRouter();
 
-  // Action Links component - Fixed to match StaffListComponent
+  // Action Links component
   const ActionLinks = ({ id }) => (
     <div className="flex items-center">
       <span 
         className="text-blue-600 text-sm font-normal font-['Arial'] leading-normal cursor-pointer hover:underline"
         onClick={(e) => {
           e.stopPropagation();            
-          router.push(`/users/parents/edit-parents/${id}`)
+          router.push(`/users/parents/view-parents/${id}`)
         }}
       >
-        Edit
+        View
       </span>
     </div>
   );

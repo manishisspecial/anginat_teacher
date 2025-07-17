@@ -2,7 +2,7 @@ import React from 'react'
 import Card from '@/components/reusableComponents/Card/Card7'
 import ChildInformationSwapComponent from './ChildInformationSwapComponent'
 
-const ChildInformation = ({ formData, updateFormData, isEditMode = false }) => {
+const ChildInformation = ({ formData, updateFormData, isEditMode = false, isReadOnly = false }) => {
     return (
         <div>
             <Card
@@ -18,6 +18,7 @@ const ChildInformation = ({ formData, updateFormData, isEditMode = false }) => {
                         formData={formData}
                         updateFormData={updateFormData}
                         isEditMode={isEditMode}
+                        isReadOnly={isReadOnly}
                     />
                 }
                 showDescription={false}

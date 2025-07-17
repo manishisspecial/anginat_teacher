@@ -3,81 +3,81 @@
 export const parentsData = [
     {
         id: 'P101',
-        name: 'Rajesh Kumar',
+        name: 'Name',
         occupation: 'House Wife',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
         id: 'P102',
-        name: 'Priya Sharma',
+        name: 'Name',
         occupation: 'Engineer',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
         id: 'P103',
-        name: 'Amit Singh',
+        name: 'Name',
         occupation: 'House Wife',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
         id: 'P104',
-        name: 'Sunita Gupta',
+        name: 'Name',
         occupation: 'House Wife',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
         id: 'P105',
-        name: 'Vikram Patel',
+        name: 'Name',
         occupation: 'Doctor',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
         id: 'P106',
-        name: 'Meera Joshi',
+        name: 'Name',
         occupation: 'Engineer',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
-        id: 'S107',
-        name: 'Ravi Agarwal',
+        id: 'P107',
+        name: 'Name',
         occupation: 'Engineer',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
-        id: 'S108',
-        name: 'Kavya Reddy',
+        id: 'P108',
+        name: 'Name',
         occupation: 'Businessman',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
-        id: 'S109',
-        name: 'Arjun Malhotra',
+        id: 'P109',
+        name: 'Name',
         occupation: 'Doctor',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
     {
-        id: 'S110',
-        name: 'Deepika Verma',
+        id: 'P110',
+        name: 'Name',
         occupation: 'Doctor',
-        phone: '+91 9674563210',
+        phone: '+91 9874563210',
         email: 'example@gmail.com',
         childName: 'Name'
     },
@@ -87,9 +87,9 @@ export const parentsData = [
         const occupations = ['Engineer', 'Doctor', 'Teacher', 'Businessman', 'House Wife', 'Lawyer', 'Accountant'];
         return {
             id: `P${num}`,
-            name: `Parent ${num}`,
+            name: 'Name',
             occupation: occupations[index % occupations.length],
-            phone: '+91 9674563210',
+            phone: '+91 9874563210',
             email: 'example@gmail.com',
             childName: 'Name'
         };

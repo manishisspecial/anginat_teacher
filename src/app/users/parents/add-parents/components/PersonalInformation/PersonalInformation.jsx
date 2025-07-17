@@ -2,7 +2,7 @@ import React from 'react'
 import Card from '@/components/reusableComponents/Card/Card7'
 import PersonalInformationSwapComponent from './PersonalInformationSwapComponent'
 
-const PersonalInformation = ({ formData, updateFormData, isEditMode = false }) => {
+const PersonalInformation = ({ formData, updateFormData, isEditMode = false, isReadOnly = false }) => {
     return (
         <div>
             <Card
@@ -18,6 +18,7 @@ const PersonalInformation = ({ formData, updateFormData, isEditMode = false }) =
                         formData={formData}
                         updateFormData={updateFormData}
                         isEditMode={isEditMode}
+                        isReadOnly={isReadOnly}
                     />
                 }
                 showDescription={false}

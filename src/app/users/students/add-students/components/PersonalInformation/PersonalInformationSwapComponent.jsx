@@ -5,7 +5,7 @@ import FileUpload from '@/components/reusableComponents/upload/FileUpload'
 import Button from '@/components/reusableComponents/buttons/Button'
 import { usePersonalInformationFetch } from './PersonalInformationFetch'
 
-const PersonalInformationSwapComponent = ({ formData, updateFormData, isEditMode = false }) => {
+const PersonalInformationSwapComponent = ({ formData, updateFormData, isEditMode = false, isReadOnly = false }) => {
     const {
         motherTongueOptions,
         genderOptions,

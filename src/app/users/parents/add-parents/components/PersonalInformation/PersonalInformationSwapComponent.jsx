@@ -4,7 +4,7 @@ import FileUpload from '@/components/reusableComponents/upload/FileUpload'
 import Button from '@/components/reusableComponents/buttons/Button'
 import { usePersonalInformationFetch } from './PersonalInformationFetch'
 
-const PersonalInformationSwapComponent = ({ formData, updateFormData }) => {
+const PersonalInformationSwapComponent = ({ formData, updateFormData, isReadOnly = false }) => {
     const {
         motherTongueOptions,
         genderOptions,
@@ -64,227 +64,298 @@ const PersonalInformationSwapComponent = ({ formData, updateFormData }) => {
 
     return (
         <div className='grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6'>
-            {/* Profile Image Section - Left Column */}
-            <div className="col-span-1 md:col-span-12 lg:col-span-3">
-                <div className="w-full h-full">
-                    <div className="flex flex-col gap-2 w-full">
-                        <label className="text-sm font-medium text-gray-700">
-                            Profile Picture
-                        </label>
-                        
-                        {/* Warning Message */}
-                        {warningMessage && (
-                            <div className="p-2 bg-red-50 border border-red-200 rounded-md">
-                                <p className="text-sm text-red-600">{warningMessage}</p>
-                            </div>
-                        )}
-
-                        {/* Profile Preview Section */}
-                        <div className="w-full max-w-[300px] md:max-w-full rounded overflow-hidden">
-                            <div className="w-full aspect-square border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50">
-                                {isLoadingPreview ? (
-                                    <div className="flex flex-col items-center gap-2">
-                                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-                                        <span className="text-sm text-gray-500">Loading...</span>
-                                    </div>
-                                ) : profilePreview ? (
-                                    <div className="relative w-full h-full p-2">
-                                        <img 
-                                            src={profilePreview} 
-                                            alt="Profile Preview" 
-                                            className="w-full h-full object-cover rounded-md"
-                                            onError={() => {
-                                                console.error('Failed to load profile:', profilePreview)
-                                                setProfilePreview(null)
-                                            }}
-                                        />
-                                        <button
-                                            onClick={removeProfile}
-                                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
-                                            title="Remove profile picture"
-                                        >
-                                            ×
-                                        </button>
-                                        {/* Show profile type indicator */}
-                                        <div className="absolute bottom-1 left-1 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
-                                            {formData.profileImage instanceof File ? 'New' : 'Current'}
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="text-center text-gray-400">
-                                        <div className="w-16 h-16 bg-gray-300 rounded-full mx-auto mb-2"></div>
-                                        <p className="text-sm">No profile image</p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* File Upload */}
-                        <FileUpload
-                            acceptedFileTypes={['.jpg', '.jpeg', '.png', '.gif']}
-                            maxFileSize={0.5}
-                            multiple={false}
-                            uploadText={hasExistingProfile ? "Upload new image to replace current picture" : "Drag and drop image or click to upload"}
-                            description="Please ensure the image file is less than 500KB. Supported formats: JPG, PNG, GIF"
-                            width="w-full"
-                            height="h-20"
-                            className="w-full"
-                            borderStyle="dashed"
-                            onFileSelect={handleProfileSelect}
-                            onFileError={handleProfileError}
-                        />
-
-                        {/* Action Buttons */}
-                        <div className="flex flex-wrap justify-center sm:justify-start items-center gap-2">
-                            <Button 
-                                type="Primary"
-                                size="Compact"
-                                state="Default"
-                                text="Update"
-                                onClick={() => document.querySelector('input[type="file"]')?.click()}
-                            />
+            {/* Profile Image Section - Left Column - Only show if not read-only */}
+            {!isReadOnly && (
+                <div className="col-span-1 md:col-span-12 lg:col-span-3">
+                    <div className="w-full h-full">
+                        <div className="flex flex-col gap-2 w-full">
+                            <label className="text-sm font-medium text-gray-700">
+                                Profile Picture
+                            </label>
                             
-                            <Button 
-                                type="Secondary"
-                                size="Compact"
-                                state="Default"
-                                text="Delete"
-                                onClick={removeProfile}
-                                disabled={!profilePreview}
-                            />
-                        </div>
+                            {/* Warning Message */}
+                            {warningMessage && (
+                                <div className="p-2 bg-red-50 border border-red-200 rounded-md">
+                                    <p className="text-sm text-red-600">{warningMessage}</p>
+                                </div>
+                            )}
 
-                        {/* Profile Info */}
-                        {profilePreview && formData.profileImage && (
-                            <div className="text-xs text-gray-500 space-y-1">
-                                {formData.profileImage instanceof File ? (
-                                    <>
-                                        <p className="font-semibold text-green-600">New File:</p>
-                                        <p>Name: {formData.profileImage.name}</p>
-                                        <p>Size: {(formData.profileImage.size / 1024).toFixed(1)} KB</p>
-                                        <p>Type: {formData.profileImage.type}</p>
-                                    </>
-                                ) : (
-                                    <p className="font-semibold text-blue-600">Current Profile Picture</p>
-                                )}
+                            {/* Profile Preview Section */}
+                            <div className="w-full max-w-[300px] md:max-w-full rounded overflow-hidden">
+                                <div className="w-full aspect-square border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50">
+                                    {isLoadingPreview ? (
+                                        <div className="flex flex-col items-center gap-2">
+                                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                                            <span className="text-sm text-gray-500">Loading...</span>
+                                        </div>
+                                    ) : profilePreview ? (
+                                        <div className="relative w-full h-full p-2">
+                                            <img 
+                                                src={profilePreview} 
+                                                alt="Profile Preview" 
+                                                className="w-full h-full object-cover rounded-md"
+                                                onError={() => {
+                                                    console.error('Failed to load profile:', profilePreview)
+                                                    setProfilePreview(null)
+                                                }}
+                                            />
+                                            <button
+                                                onClick={removeProfile}
+                                                className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                                                title="Remove profile picture"
+                                            >
+                                                ×
+                                            </button>
+                                            {/* Show profile type indicator */}
+                                            <div className="absolute bottom-1 left-1 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
+                                                {formData.profileImage instanceof File ? 'New' : 'Current'}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="text-center text-gray-400">
+                                            <div className="w-16 h-16 bg-gray-300 rounded-full mx-auto mb-2"></div>
+                                            <p className="text-sm">No profile image</p>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        )}
+
+                            {/* File Upload */}
+                            <FileUpload
+                                acceptedFileTypes={['.jpg', '.jpeg', '.png', '.gif']}
+                                maxFileSize={0.5}
+                                multiple={false}
+                                uploadText={hasExistingProfile ? "Upload new image to replace current picture" : "Drag and drop image or click to upload"}
+                                description="Please ensure the image file is less than 500KB. Supported formats: JPG, PNG, GIF"
+                                width="w-full"
+                                height="h-20"
+                                className="w-full"
+                                borderStyle="dashed"
+                                onFileSelect={handleProfileSelect}
+                                onFileError={handleProfileError}
+                            />
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-wrap justify-center sm:justify-start items-center gap-2">
+                                <Button 
+                                    type="Primary"
+                                    size="Compact"
+                                    state="Default"
+                                    text="Update"
+                                    onClick={() => document.querySelector('input[type="file"]')?.click()}
+                                />
+                                
+                                <Button 
+                                    type="Secondary"
+                                    size="Compact"
+                                    state="Default"
+                                    text="Delete"
+                                    onClick={removeProfile}
+                                    disabled={!profilePreview}
+                                />
+                            </div>
+
+                            {/* Profile Info */}
+                            {profilePreview && formData.profileImage && (
+                                <div className="text-xs text-gray-500 space-y-1">
+                                    {formData.profileImage instanceof File ? (
+                                        <>
+                                            <p className="font-semibold text-green-600">New File:</p>
+                                            <p>Name: {formData.profileImage.name}</p>
+                                            <p>Size: {(formData.profileImage.size / 1024).toFixed(1)} KB</p>
+                                            <p>Type: {formData.profileImage.type}</p>
+                                        </>
+                                    ) : (
+                                        <p className="font-semibold text-blue-600">Current Profile Picture</p>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
+            
+            {/* Profile Section for Read-only mode */}
+            {isReadOnly && (
+                <div className="col-span-1 md:col-span-12 lg:col-span-3">
+                    <div className="w-full h-full">
+                        <div className="flex flex-col gap-2 w-full">
+                            <label className="text-sm font-medium text-gray-700">
+                                Profile
+                            </label>
+                            
+                            {/* Profile Preview Section */}
+                            <div className="w-full max-w-[300px] md:max-w-full rounded overflow-hidden">
+                                <div className="w-full aspect-square border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50">
+                                    <div className="text-center text-gray-400">
+                                        <div className="w-16 h-16 bg-gray-000 rounded-full mx-auto mb-2"></div>
+                                        {/* <p className="text-sm">No profile image</p> */}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             
             {/* Personal Information Form - Right Column */}
             <div className='col-span-1 md:col-span-12 lg:col-span-9 grid grid-rows-1 gap-4 md:gap-8'>
                 <div className="w-full">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-                        <Input
-                            actionType='text'
-                            label='First Name'
-                            placeholder='Enter First Name'
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.firstName || ''}
-                            onChange={(value) => handleInputChange('firstName', value)}
-                        />
+                    {isReadOnly ? (
+                        // Read-only display as plain text
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">First Name:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.firstName || ''}</span>
+                            </div>
 
-                        <Input
-                            actionType='text'
-                            label='Last Name'
-                            placeholder='Enter Last Name'
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.lastName || ''}
-                            onChange={(value) => handleInputChange('lastName', value)}
-                        />
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">Last Name:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.lastName || ''}</span>
+                            </div>
 
-                        <Input
-                            actionType='text'
-                            label='Qualification'
-                            placeholder='Enter Qualification'
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.qualification || ''}
-                            onChange={(value) => handleInputChange('qualification', value)}
-                        />
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">Qualification:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.qualification || ''}</span>
+                            </div>
 
-                        <Input
-                            actionType='text'
-                            label='Phone Number'
-                            placeholder='Enter Phone Number'
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.phoneNumber || ''}
-                            onChange={(value) => handleInputChange('phoneNumber', value)}
-                        />
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">Phone:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.phoneNumber || ''}</span>
+                            </div>
 
-                        <Input
-                            actionType='text'
-                            label='Email'
-                            placeholder='Enter Email'
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.email || ''}
-                            onChange={(value) => handleInputChange('email', value)}
-                        />
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">Email:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.email || ''}</span>
+                            </div>
 
-                        <Input
-                            actionType='date'
-                            label='Date of Birth'
-                            placeholder='Enter Date of Birth'
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.dateOfBirth || ''}
-                            onChange={(value) => handleInputChange('dateOfBirth', value)}
-                        />
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">Date of Birth:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.dateOfBirth || ''}</span>
+                            </div>
 
-                        <Input
-                            actionType='dropdown'
-                            label='Mother Tongue'
-                            placeholder='Select Mother Tongue'
-                            options={motherTongueOptions}
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.motherTongue || ''}
-                            onSelect={(option) => handleDropdownChange('motherTongue', option)}
-                            onChange={(option) => handleDropdownChange('motherTongue', option)}
-                        />
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">Mother Tongue:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.motherTongue || ''}</span>
+                            </div>
 
-                        <Input
-                            actionType='dropdown'
-                            label='Gender'
-                            placeholder='Select Gender'
-                            options={genderOptions}
-                            fullWidth={true}
-                            showLabel={true}
-                            showSupportingText={false}
-                            required={true}
-                            className="w-full"
-                            value={formData.gender || ''}
-                            onSelect={(option) => handleDropdownChange('gender', option)}
-                            onChange={(option) => handleDropdownChange('gender', option)}
-                        />
-                    </div>
+                            <div className="flex items-center">
+                                <label className="text-sm font-medium text-gray-700 w-32">Gender:</label>
+                                <span className="text-sm text-gray-900 ml-2">{formData.gender || ''}</span>
+                            </div>
+                        </div>
+                    ) : (
+                        // Editable form fields
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+                            <Input
+                                actionType='text'
+                                label='First Name'
+                                placeholder='Enter First Name'
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.firstName || ''}
+                                onChange={(value) => handleInputChange('firstName', value)}
+                            />
+
+                            <Input
+                                actionType='text'
+                                label='Last Name'
+                                placeholder='Enter Last Name'
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.lastName || ''}
+                                onChange={(value) => handleInputChange('lastName', value)}
+                            />
+
+                            <Input
+                                actionType='text'
+                                label='Qualification'
+                                placeholder='Enter Qualification'
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.qualification || ''}
+                                onChange={(value) => handleInputChange('qualification', value)}
+                            />
+
+                            <Input
+                                actionType='text'
+                                label='Phone Number'
+                                placeholder='Enter Phone Number'
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.phoneNumber || ''}
+                                onChange={(value) => handleInputChange('phoneNumber', value)}
+                            />
+
+                            <Input
+                                actionType='text'
+                                label='Email'
+                                placeholder='Enter Email'
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.email || ''}
+                                onChange={(value) => handleInputChange('email', value)}
+                            />
+
+                            <Input
+                                actionType='date'
+                                label='Date of Birth'
+                                placeholder='Enter Date of Birth'
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.dateOfBirth || ''}
+                                onChange={(value) => handleInputChange('dateOfBirth', value)}
+                            />
+
+                            <Input
+                                actionType='dropdown'
+                                label='Mother Tongue'
+                                placeholder='Select Mother Tongue'
+                                options={motherTongueOptions}
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.motherTongue || ''}
+                                onSelect={(option) => handleDropdownChange('motherTongue', option)}
+                                onChange={(option) => handleDropdownChange('motherTongue', option)}
+                            />
+
+                            <Input
+                                actionType='dropdown'
+                                label='Gender'
+                                placeholder='Select Gender'
+                                options={genderOptions}
+                                fullWidth={true}
+                                showLabel={true}
+                                showSupportingText={false}
+                                required={true}
+                                className="w-full"
+                                value={formData.gender || ''}
+                                onSelect={(option) => handleDropdownChange('gender', option)}
+                                onChange={(option) => handleDropdownChange('gender', option)}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
