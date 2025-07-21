@@ -140,48 +140,7 @@ export const ROUTE_CONFIG = {
 
 
 
-    '/academic/course/courses': {
-        title: 'Courses',
-        icon: 'courses',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
-            { label: 'Courses', path: '/academic/course/courses', active: true, isBreadcrumb: true }
-        ]
-    },
 
-    '/academic/course/add-courses': {
-        title: 'Add Course',
-        icon: 'addCourse',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
-            { label: 'Add Course', path: '/academic/course/add-courses', active: true, isBreadcrumb: true }
-        ]
-    },
-    '/academic/study-material': {
-        title: 'Study Material',
-        icon: 'materials',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
-            { label: 'Study Material', path: '/academic/study-material', active: true, isBreadcrumb: true }
-        ]
-    },
-    '/academic/study-material/add-study-material': {
-        title: 'Add Study Material',
-        icon: 'addMaterial',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
-            { label: 'Study Material', path: '/academic/study-material', active: false, isBreadcrumb: false },
-            { label: 'Add Study Material', path: '/academic/study-material/add-study-material', active: true, isBreadcrumb: false }
-        ]
-    },
      
     '/academic/classes': {
         title: 'Classes',
@@ -190,14 +149,24 @@ export const ROUTE_CONFIG = {
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
-            { label: 'Classes', path: '/academic/classes', active: true, isBreadcrumb: true },
-            { label: 'All Classes', path: '/academic/classes', active: false, isBreadcrumb: false }
-          
+            { label: 'Classes', path: '/academic/classes', active: true, isBreadcrumb: true }
+        ]
+    },
+
+    '/academic/classes/all-classes': {
+        title: 'All Classes',
+        icon: 'classes',
+        iconBgColor: '#0364F3',
+        breadcrumbs: [
+            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
+            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
+            { label: 'Classes', path: '/academic/classes', active: false, isBreadcrumb: true },
+            { label: 'All Classes', path: '/academic/classes/all-classes', active: true, isBreadcrumb: true }
         ]
     },
 
     '/academic/schedule': {
-        title: 'Schedule ',
+        title: 'Schedule',
         icon: 'schedule',   
         iconBgColor: '#0364F3',
         breadcrumbs: [
@@ -210,15 +179,36 @@ export const ROUTE_CONFIG = {
         ]
     },
     '/academic/timetable': {
-        title: 'Timetable ',
+        title: 'Timetable',
         icon: 'timetable',   
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
             { label: 'Timetable', path: '/academic/timetable', active: true, isBreadcrumb: true }
+        ]
+    },
 
+    '/academic/assignments': {
+        title: 'Assignments',
+        icon: 'assignments',
+        iconBgColor: '#0364F3',
+        breadcrumbs: [
+            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
+            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
+            { label: 'Assignments', path: '/academic/assignments', active: true, isBreadcrumb: true }
+        ]
+    },
 
+    '/academic/leaves/leave-history': {
+        title: 'Leaves History',
+        icon: 'leaves',
+        iconBgColor: '#0364F3',
+        breadcrumbs: [
+            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
+            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
+            { label: 'Leaves', path: '/academic/leaves', active: false, isBreadcrumb: true },
+            { label: 'Leaves History', path: '/academic/leaves/leave-history', active: true, isBreadcrumb: true }
         ]
     },
     '/academic/timetable/add-timetable': {
@@ -233,17 +223,39 @@ export const ROUTE_CONFIG = {
         ]
     },
     '/academic/exams': {
-        title: 'Exams',
+        title: 'Exam List',
         icon: 'exams',   
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
-          
-            { label: 'Exams', path: '/academic/exams', active: true, isBreadcrumb: true },
-            { label: 'Exams List', path: '/academic/exams', active: false, isBreadcrumb: false }
+            { label: 'Exams', path: '/academic/exams', active: true, isBreadcrumb: true }
+        ]
+    },
 
+    '/academic/exams/attendance': {
+        title: 'Exam Attendance',
+        icon: 'attendance',
+        iconBgColor: '#0364F3',
+        breadcrumbs: [
+            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
+            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
+            { label: 'Exams', path: '/academic/exams', active: false, isBreadcrumb: true },
+            { label: 'Exams List', path: '/academic/exams', active: false, isBreadcrumb: true },
+            { label: 'Attendance', path: '/academic/exams/attendance', active: true, isBreadcrumb: true }
+        ]
+    },
 
+    '/academic/exams/result': {
+        title: 'Exam Result',
+        icon: 'exams',
+        iconBgColor: '#0364F3',
+        breadcrumbs: [
+            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
+            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
+            { label: 'Exams', path: '/academic/exams', active: false, isBreadcrumb: true },
+            { label: 'Exams List', path: '/academic/exams', active: false, isBreadcrumb: true },
+            { label: 'Result', path: '/academic/exams/result', active: true, isBreadcrumb: true }
         ]
     },
    
@@ -257,14 +269,15 @@ export const ROUTE_CONFIG = {
             { label: 'Attendance', path: '/reports/attendance', active: true, isBreadcrumb: true }
         ]
     },
-    '/reports/leaves': {
-        title: 'Leaves',
-        icon: 'leaves',
+    '/reports/attendance/student-attendance': {
+        title: 'Student Attendance',
+        icon: 'attendance',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Reports', path: '/reports', active: false, isBreadcrumb: false },
-            { label: 'Leaves', path: '/reports/leaves', active: true, isBreadcrumb: true }
+            { label: 'Attendance', path: '/reports/attendance', active: false, isBreadcrumb: true },
+            { label: 'Student Attendance', path: '/reports/attendance/student-attendance', active: true, isBreadcrumb: true }
         ]
     },
     '/reports/marks': {
@@ -277,52 +290,15 @@ export const ROUTE_CONFIG = {
             { label: 'Marks', path: '/reports/marks', active: true, isBreadcrumb: true }
         ]
     },
-    '/reports/feestype': {
-        title: 'Fees Type',
-        icon: 'Fees Type',
+    '/reports/marks/marks-report-list': {
+        title: 'Marks Report List',
+        icon: 'marks',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Reports', path: '/reports', active: false, isBreadcrumb: false },
-            { label: 'Fees', path: '/reports', active: true, isBreadcrumb: true },
-            { label: 'Fees Type', path: '/reports/feestype', active: true, isBreadcrumb: true }
-            
-        ]
-    },
-    '/reports/feesassign': {
-        title: 'Fees Assign',
-        icon: 'Fees Type',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Reports', path: '/reports', active: false, isBreadcrumb: false },
-            { label: 'Fees', path: '/reports', active: true, isBreadcrumb: true },
-            { label: 'Fees Assign', path: '/reports/feestype', active: true, isBreadcrumb: true }
-            
-        ]
-    },
-    '/reports/collectfees': {
-        title: 'Collect Fees',
-        icon: 'Collect Fees',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Reports', path: '/reports', active: false, isBreadcrumb: false },
-            { label: 'Fees', path: '/reports', active: true, isBreadcrumb: true },
-            { label: 'Collect Fees', path: '/reports/collectfees', active: true, isBreadcrumb: true }
-            
-        ]
-    },
-    '/reports/feesreport': {
-        title: 'Fees Report',
-        icon: 'Fees Report',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Reports', path: '/reports', active: false, isBreadcrumb: false },
-            { label: 'Fees', path: '/reports', active: true, isBreadcrumb: true },
-            { label: 'Fees Report', path: '/reports/feesreport', active: true, isBreadcrumb: true }
-            
+            { label: 'Marks', path: '/reports/marks', active: false, isBreadcrumb: true },
+            { label: 'Marks Report List', path: '/reports/marks/marks-report-list', active: true, isBreadcrumb: true }
         ]
     },
     
@@ -330,17 +306,7 @@ export const ROUTE_CONFIG = {
 
 
     
-    '/academic/course/edit': {
-        title: 'Edit Course',
-        icon: 'editCourse',
-        iconBgColor: '#0364F3',
-        breadcrumbs: [
-            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
-            { label: 'Academic', path: '/academic', active: false, isBreadcrumb: true },
-            { label: 'Courses', path: '/academic/course/courses', active: false, isBreadcrumb: true },
-            { label: 'Edit Course', path: '/academic/course/edit', active: true, isBreadcrumb: true }
-        ]
-    },
+
 
     '/announcements/holidays': {
         title: 'Holidays',
@@ -425,31 +391,15 @@ export const NAVIGATION_OPTIONS = {
     // Academic navigation options
     academic: [
         {
-            text: "Courses",
-            path: "/academic/course/courses",
-            icon: "courses",
-            disabled: false,
-            hidden: false
-        },
-        {
-            text: "Add Courses",
-            path: "/academic/course/add-courses",
-            icon: "addCourse",
-            disabled: false,
-            hidden: false
-        },
-
-        {
-            text: "Study Material",
-            path: "/academic/study-material",
-            icon: "materials",
-            disabled: false,
-            hidden: false
-        },
-
-        {
             text: "Classes",
             path: "/academic/classes",
+            icon: "classes",
+            disabled: false,
+            hidden: false
+        },
+        {
+            text: "All Classes",
+            path: "/academic/classes/all-classes",
             icon: "classes",
             disabled: false,
             hidden: false
@@ -467,16 +417,42 @@ export const NAVIGATION_OPTIONS = {
             icon: "timetable",
             disabled: false,
             hidden: false
-        }
-        ,
+        },
+        {
+            text: "Assignments",
+            path: "/academic/assignments",
+            icon: "assignments",
+            disabled: false,
+            hidden: false
+        },
+        {
+            text: "Leaves",
+            path: "/academic/leaves/leave-history",
+            icon: "leaves",
+            disabled: false,
+            hidden: false
+        },
         {
             text: "Exams",
             path: "/academic/exams",
-            icon: "timetable",
+            icon: "exams",
+            disabled: false,
+            hidden: false
+        },
+        {
+            text: "Exam Attendance",
+            path: "/academic/exams/attendance",
+            icon: "attendance",
+            disabled: false,
+            hidden: false
+        },
+        {
+            text: "Exam Result",
+            path: "/academic/exams/result",
+            icon: "exams",
             disabled: false,
             hidden: false
         }
-       
     ],
     // Users navigation options
       users: [
@@ -530,50 +506,26 @@ export const NAVIGATION_OPTIONS = {
             hidden: false
         },
         {
-            text: "Leaves",
-            path: "/reports/leaves",
-            icon: "leaves",
+            text: "Student Attendance",
+            path: "/reports/attendance/student-attendance",
+            icon: "attendance",
             disabled: false,
             hidden: false
-        }
-        ,{
+        },
+        {
             text: "Marks",
             path: "/reports/marks",
             icon: "marks",
             disabled: false,
             hidden: false
-        }
-        ,{
-            text: "FeesType", 
-            path: "/reports/feestype",
+        },
+        {
+            text: "Marks Report List", 
+            path: "/reports/marks/marks-report-list",
             icon: "marks",
             disabled: false,
             hidden: false
         }
-        ,{
-            text: "Fees Assign", 
-            path: "/reports/feesassign",
-            icon: "marks",
-            disabled: false,
-            hidden: false
-        }
-        ,{
-            text: "Collect Fees", 
-            path: "/reports/collectfees",
-            icon: "marks",
-            disabled: false,
-            hidden: false
-        }
-        ,{
-            text: "Fees Report", 
-            path: "/reports/feesreport",
-            icon: "marks",
-            disabled: false,
-            hidden: false
-        }
-        
-
-
     ],
 
     // Announcements navigation options
@@ -649,7 +601,7 @@ export const NAVIGATION_TABS = [
 /**
  * Get the navigation type from the current pathname
  * @param {string} pathname - Current pathname
- * @returns {string|null} - Navigation type (academic, leads, users, etc.) or null
+ * @returns {string|null} - Navigation type (academic, leads, etc.) or null
  */
 export function getNavigationType(pathname) {
     if (pathname.startsWith('/academic')) return 'academic'
