@@ -143,14 +143,13 @@ export default function AllClassesPage() {
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
                     </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">ID</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Class</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Section</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">No of students</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">No of subjects</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Start time</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">End time</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Action</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">ID</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Class</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Section</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">No of students</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">No of subjects</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Start time</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">End time</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -171,14 +170,6 @@ export default function AllClassesPage() {
                       <td className="py-3 px-4 text-gray-900">{item.subjects}</td>
                       <td className="py-3 px-4 text-gray-900">{item.startTime}</td>
                       <td className="py-3 px-4 text-gray-900">{item.endTime}</td>
-                      <td className="py-3 px-4">
-                        <button
-                          onClick={() => router.push(`/academic/classes/all-classes/${item.id}`)}
-                          className="text-blue-600 hover:text-blue-800 font-medium"
-                        >
-                          View
-                        </button>
-                      </td>
                     </tr>
                   ))}
                 </tbody>

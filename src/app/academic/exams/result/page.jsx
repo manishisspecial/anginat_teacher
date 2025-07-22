@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import PageLayout from '@/components/layout/PageLayout'
-import { getIcon } from '@/components/icons/IconComponents'
 
 export default function ExamResultPage() {
   const router = useRouter()
@@ -13,9 +12,22 @@ export default function ExamResultPage() {
 
   // Mock data for exam results (100 items) - matching the design
   const resultData = Array.from({ length: 100 }, (_, index) => {
-    const total = 144 + (index % 314) // 144-457
-    const percent = Math.round((total / 500) * 100)
-    const grade = percent >= 90 ? 'A' : percent >= 80 ? 'B' : percent >= 70 ? 'C' : percent >= 60 ? 'D' : 'F'
+    // Generate varied percentages from 33 to 98
+    const percent = 33 + (index % 66) // This gives us 33, 34, 35, ..., 98, 33, 34, ...
+    
+    // Calculate total marks based on percentage (assuming max 500 marks)
+    const total = Math.round((percent / 100) * 500)
+    
+    // Grade calculation based on percentage
+    let grade
+    if (percent >= 90) grade = 'A'
+    else if (percent >= 80) grade = 'A'
+    else if (percent >= 70) grade = 'B'
+    else if (percent >= 60) grade = 'C'
+    else if (percent >= 50) grade = 'D'
+    else grade = 'F'
+    
+    // Result: PASS if percentage >= 40, FAIL otherwise
     const result = percent >= 40 ? 'PASS' : 'FAIL'
     
     return {
@@ -72,6 +84,11 @@ export default function ExamResultPage() {
     setSelectedItems([]) // Clear selection
   }
 
+  const handleViewResult = (resultId) => {
+    // Navigate to result details page
+    router.push(`/academic/exams/result/details/${resultId}`)
+  }
+
   // Generate page numbers
   const getPageNumbers = () => {
     const pages = []
@@ -99,8 +116,8 @@ export default function ExamResultPage() {
     return (
       <span className={`px-3 py-1 rounded-full text-xs font-medium ${
         isPass 
-          ? 'bg-green-600 text-white' 
-          : 'bg-red-600 text-white'
+          ? 'bg-green-700 text-white' 
+          : 'bg-red-700 text-white'
       }`}>
         {result}
       </span>
@@ -121,12 +138,28 @@ export default function ExamResultPage() {
         {/* Result Section */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="p-6">
-            {/* Header with title and controls */}
+            {/* Legend positioned above result section */}
+            <div className="flex justify-end mb-4">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="px-3 py-1 bg-red-700 text-white rounded-full text-xs font-medium">FAIL</div>
+                  <span className="text-sm text-gray-600">Fail</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="px-3 py-1 bg-green-700 text-white rounded-full text-xs font-medium">PASS</div>
+                  <span className="text-sm text-gray-600">Pass</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Result Controls */}
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Result</h2>
+              <h3 className="text-lg font-semibold text-gray-900">Result</h3>
               <div className="flex items-center gap-4">
                 <button className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2">
-                  {getIcon('filter')}
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 13C0 12.5938 0.3125 12.25 0.75 12.25H2.59375C2.90625 11.25 3.875 10.5 5 10.5C6.09375 10.5 7.0625 11.25 7.375 12.25H15.25C15.6562 12.25 16 12.5938 16 13C16 13.4375 15.6562 13.75 15.25 13.75H7.375C7.0625 14.7812 6.09375 15.5 5 15.5C3.875 15.5 2.90625 14.7812 2.59375 13.75H0.75C0.3125 13.75 0 13.4375 0 13ZM6 13C6 12.4688 5.53125 12 5 12C4.4375 12 4 12.4688 4 13C4 13.5625 4.4375 14 5 14C5.53125 14 6 13.5625 6 13ZM11 5.5C12.0938 5.5 13.0625 6.25 13.375 7.25H15.25C15.6562 7.25 16 7.59375 16 8C16 8.4375 15.6562 8.75 15.25 8.75H13.375C13.0625 9.78125 12.0938 10.5 11 10.5C9.875 10.5 8.90625 9.78125 8.59375 8.75H0.75C0.3125 8.75 0 8.4375 0 8C0 7.59375 0.3125 7.25 0.75 7.25H8.59375C8.90625 6.25 9.875 5.5 11 5.5ZM12 8C12 7.46875 11.5312 7 11 7C10.4375 7 10 7.46875 10 8C10 8.5625 10.4375 9 11 9C11.5312 9 12 8.5625 12 8ZM15.25 2.25C15.6562 2.25 16 2.59375 16 3C16 3.4375 15.6562 3.75 15.25 3.75H8.375C8.0625 4.78125 7.09375 5.5 6 5.5C4.875 5.5 3.90625 4.78125 3.59375 3.75H0.75C0.3125 3.75 0 3.4375 0 3C0 2.59375 0.3125 2.25 0.75 2.25H3.59375C3.90625 1.25 4.875 0.5 6 0.5C7.09375 0.5 8.0625 1.25 8.375 2.25H15.25ZM5 3C5 3.5625 5.4375 4 6 4C6.53125 4 7 3.5625 7 3C7 2.46875 6.53125 2 6 2C5.4375 2 5 2.46875 5 3Z" fill="#0364F3"/>
+                  </svg>
                   Filters
                 </button>
                 <input
@@ -136,12 +169,6 @@ export default function ExamResultPage() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="px-3 py-1 bg-red-600 text-white rounded-full text-xs font-medium">FAIL</span>
-                  <span className="text-gray-600">Fail</span>
-                  <span className="px-3 py-1 bg-green-600 text-white rounded-full text-xs font-medium">PASS</span>
-                  <span className="text-gray-600">Pass</span>
-                </div>
               </div>
             </div>
 
@@ -158,13 +185,13 @@ export default function ExamResultPage() {
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
                     </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Admission No</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Name</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Total</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Percent</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Grade</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Result</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Action</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Admission No</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Name</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Total</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Percent</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Grade</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Result</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -186,7 +213,7 @@ export default function ExamResultPage() {
                       <td className="py-3 px-4">{getResultBadge(item.result)}</td>
                       <td className="py-3 px-4">
                         <button
-                          onClick={() => router.push(`/academic/exams/result/${item.id}`)}
+                          onClick={() => handleViewResult(item.id)}
                           className="text-blue-600 hover:text-blue-800 font-medium"
                         >
                           View
