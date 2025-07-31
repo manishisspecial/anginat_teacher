@@ -6,9 +6,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const TEST_USER = {
   id: 1,
   email: 'admin@anginat.com',
-  username: 'admin',
-  role: 'admin',
-  name: 'Admin User'
+  username: 'teacher',
+  role: 'teacher',
+  name: 'Teacher User'
 };
 
 const AuthContext = createContext();
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // For development, you can comment out this section to force login every time
     // or clear localStorage to reset the auth state
-    localStorage.removeItem('user'); // Uncomment this line to force login
+    // localStorage.removeItem('user'); // Uncomment this line to force login
     
     const savedUser = localStorage.getItem('user');
     if (savedUser) {

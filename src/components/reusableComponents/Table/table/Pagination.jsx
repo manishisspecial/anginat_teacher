@@ -83,13 +83,13 @@ const Pagination = ({
 
   return (
     <div 
-      className={`w-full flex justify-between items-center mt-4 ${className}`}
+      className={`w-full flex flex-col sm:flex-row justify-between items-center gap-4 mt-4 ${className}`}
       data-numbers="True" 
       data-size="M"
     >
       {/* Items count - Left side */}
-      <div className="flex justify-start items-center px-4 py-2">
-        <div className="text-zinc-800 text-sm font-normal font-['Arial'] leading-normal">
+      <div className="flex justify-start items-center px-2 md:px-4 py-2">
+        <div className="text-zinc-800 text-xs md:text-sm font-normal font-['Arial'] leading-normal">
           {startItem} – {endItem} of {totalItems} items
         </div>
       </div>
@@ -105,13 +105,13 @@ const Pagination = ({
         <button
           onClick={handlePrevious}
           disabled={currentPage === 1}
-          className={`w-10 h-10 p-2 rounded-lg border border-neutral-200 flex justify-center items-center transition-colors ${
+          className={`w-8 h-8 md:w-10 md:h-10 p-1 md:p-2 rounded-lg border border-neutral-200 flex justify-center items-center transition-colors ${
             currentPage === 1 ? 'cursor-not-allowed' : 'hover:bg-gray-50 cursor-pointer'
           }`}
           data-state={currentPage === 1 ? "Disabled" : "Default"}
           data-type="Arrow Left"
         >
-          <ChevronLeft className={`w-4 h-4 ${currentPage === 1 ? 'text-zinc-600' : 'text-zinc-600'}`} />
+          <ChevronLeft className={`w-3 h-3 md:w-4 md:h-4 ${currentPage === 1 ? 'text-zinc-600' : 'text-zinc-600'}`} />
         </button>
 
         {/* Page numbers */}
@@ -121,7 +121,7 @@ const Pagination = ({
               return (
                 <div
                   key={`ellipsis-${index}`}
-                  className="w-10 h-10 rounded-lg flex items-center justify-center"
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center"
                   data-state="Default"
                   data-type="Number"
                 >
@@ -137,7 +137,7 @@ const Pagination = ({
               <button
                 key={page}
                 onClick={() => handlePageClick(page)}
-                className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
+                className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center transition-colors ${
                   isActive ? 'bg-blue-600 text-white' : 'hover:bg-gray-50 text-blue-600'
                 }`}
                 data-state={isActive ? "Active" : "Default"}
@@ -155,13 +155,13 @@ const Pagination = ({
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages}
-          className={`w-10 h-10 p-2 rounded-lg border border-neutral-200 flex justify-center items-center transition-colors ${
+          className={`w-8 h-8 md:w-10 md:h-10 p-1 md:p-2 rounded-lg border border-neutral-200 flex justify-center items-center transition-colors ${
             currentPage === totalPages ? 'cursor-not-allowed' : 'hover:bg-gray-50 cursor-pointer'
           }`}
           data-state={currentPage === totalPages ? "Disabled" : "Default"}
           data-type="Arrow Right"
         >
-          <ChevronRight className={`w-4 h-4 ${currentPage === totalPages ? 'text-zinc-600' : 'text-blue-600'}`} />
+          <ChevronRight className={`w-3 h-3 md:w-4 md:h-4 ${currentPage === totalPages ? 'text-zinc-600' : 'text-blue-600'}`} />
         </button>
       </div>
 
@@ -169,22 +169,22 @@ const Pagination = ({
       <div className="flex justify-end items-center relative">
         <button
           onClick={() => setShowDropdown(!showDropdown)}
-          className="px-4 py-2 rounded-lg border border-zinc-300 flex items-center gap-2 hover:bg-gray-50 transition-colors cursor-pointer bg-white"
+          className="px-2 md:px-4 py-2 rounded-lg border border-zinc-300 flex items-center gap-1 md:gap-2 hover:bg-gray-50 transition-colors cursor-pointer bg-white"
         >
-          <div className="text-neutral-900 text-sm font-normal font-['Arial'] leading-normal">
+          <div className="text-neutral-900 text-xs md:text-sm font-normal font-['Arial'] leading-normal">
             {itemsPerPage}
           </div>
-          <ChevronDown className="w-4 h-4 text-neutral-900" />
+          <ChevronDown className="w-3 h-3 md:w-4 md:h-4 text-neutral-900" />
         </button>
 
         {/* Dropdown menu */}
         {showDropdown && (
-          <div className="absolute top-full right-0 mt-1 bg-white rounded-lg border border-zinc-300 shadow-lg z-50 min-w-[80px]">
+          <div className="absolute top-full right-0 mt-1 bg-white rounded-lg border border-zinc-300 shadow-lg z-50 min-w-[60px] md:min-w-[80px]">
             {itemsPerPageOptions.map((option, index) => (
               <button
                 key={option}
                 onClick={() => handleItemsPerPageSelect(option)}
-                className={`w-full px-4 py-2 text-left text-sm font-normal font-['Arial'] text-neutral-900 hover:bg-gray-50 transition-colors cursor-pointer border-none ${
+                className={`w-full px-2 md:px-4 py-2 text-left text-xs md:text-sm font-normal font-['Arial'] text-neutral-900 hover:bg-gray-50 transition-colors cursor-pointer border-none ${
                   option === itemsPerPage ? 'bg-blue-50' : ''
                 } ${
                   index === 0 ? 'rounded-t-lg' : ''

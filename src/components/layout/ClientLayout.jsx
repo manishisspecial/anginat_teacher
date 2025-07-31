@@ -10,6 +10,7 @@ export default function ClientLayout({ children }) {
   const router = useRouter()
   const { isAuthenticated, user, loading, isInitialized } = useAuth()
   const [isChecking, setIsChecking] = useState(true)
+  const [shouldRedirect, setShouldRedirect] = useState(null)
   
   // Define which pages don't require authentication
   const isAuthPage = pathname?.startsWith('/login') || 
@@ -28,20 +29,39 @@ export default function ClientLayout({ children }) {
 
   useEffect(() => {
     // Don't redirect if we're still checking, not initialized, or on public pages
-    if (isChecking || !isInitialized || isPublicPage || loading) return
+    if (isChecking || !isInitialized || loading) return
 
-    // Redirect to login if not authenticated and on protected route
+    // Handle home page redirect
+    if (pathname === '/') {
+      const targetPath = isAuthenticated() ? '/dashboard' : '/login'
+      setShouldRedirect(targetPath)
+      return
+    }
+
+    // Set redirect target instead of immediately navigating
     if (!isAuthenticated()) {
-      router.push('/login')
+      setShouldRedirect('/login')
       return
     }
 
     // Redirect authenticated users away from auth pages
     if (isAuthenticated() && isAuthPage) {
-      router.push('/dashboard')
+      setShouldRedirect('/dashboard')
       return
     }
-  }, [isAuthenticated, isAuthPage, isPublicPage, pathname, router, isChecking, loading, isInitialized])
+  }, [isAuthenticated, isAuthPage, isPublicPage, pathname, isChecking, loading, isInitialized])
+
+  // Handle redirects in a separate effect to avoid render-time navigation
+  useEffect(() => {
+    if (shouldRedirect) {
+      const timeoutId = setTimeout(() => {
+        router.push(shouldRedirect)
+        setShouldRedirect(null)
+      }, 0)
+      
+      return () => clearTimeout(timeoutId)
+    }
+  }, [shouldRedirect, router])
 
   // Show loading spinner while checking authentication
   if (isChecking || !isInitialized || loading) {
@@ -64,13 +84,8 @@ export default function ClientLayout({ children }) {
     )
   }
 
-  // For home page, redirect based on auth status
+  // For home page, show loading while redirecting
   if (pathname === '/') {
-    if (isAuthenticated()) {
-      router.push('/dashboard')
-    } else {
-      router.push('/login')
-    }
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-4">

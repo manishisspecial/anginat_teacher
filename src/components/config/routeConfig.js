@@ -223,13 +223,14 @@ export const ROUTE_CONFIG = {
         ]
     },
     '/academic/exams': {
-        title: 'Exam List',
+        title: 'Exams',
         icon: 'exams',   
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Academic', path: '/academic', active: false, isBreadcrumb: false },
-            { label: 'Exams', path: '/academic/exams', active: true, isBreadcrumb: true }
+            { label: 'Exams', path: '/academic/exams', active: false, isBreadcrumb: true },
+            { label: 'Exams List', path: '/academic/exams', active: true, isBreadcrumb: true }
         ]
     },
 
@@ -308,35 +309,53 @@ export const ROUTE_CONFIG = {
     
 
 
-    '/announcements/holidays': {
-        title: 'Holidays',
+    '/announcements': {
+        title: 'Announcements',
+        icon: 'announcements',
+        iconBgColor: '#0364F3',
+        breadcrumbs: [
+            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
+            { label: 'Announcements', path: '/announcements', active: true, isBreadcrumb: true }
+        ]
+    },
+    '/announcements/holidays-list': {
+        title: 'Holidays List',
         icon: 'holidays',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Announcements', path: '/announcements', active: false, isBreadcrumb: false },
-            { label: 'Holidays', path: '/announcements/holidays', active: true, isBreadcrumb: true }
+            { label: 'Holidays List', path: '/announcements/holidays-list', active: true, isBreadcrumb: true }
         ]
     },
-    '/announcements/noticeboard': {
+    '/announcements/notice-board': {
         title: 'Notice Board',
         icon: 'noticeboard',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Announcements', path: '/announcements', active: false, isBreadcrumb: false },
-            { label: 'Notice Board', path: '/announcements/noticeboard', active: true, isBreadcrumb: true }
+            { label: 'Notice Board', path: '/announcements/notice-board', active: true, isBreadcrumb: true }
         ]
     },
-     '/announcements/competition': {
+    '/announcements/events': {
         title: 'Events',
-        icon: 'competition',
-       
+        icon: 'events',
         iconBgColor: '#0364F3',
         breadcrumbs: [
             { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
             { label: 'Announcements', path: '/announcements', active: false, isBreadcrumb: false },
-            { label: 'Competition', path: '/announcements/competition', active: true, isBreadcrumb: true }
+            { label: 'Events', path: '/announcements/events', active: true, isBreadcrumb: true }
+        ]
+    },
+    '/announcements/competitions': {
+        title: 'Competitions',
+        icon: 'competitions',
+        iconBgColor: '#0364F3',
+        breadcrumbs: [
+            { label: 'Home', path: '/dashboard', active: false, isBreadcrumb: true },
+            { label: 'Announcements', path: '/announcements', active: false, isBreadcrumb: false },
+            { label: 'Competitions', path: '/announcements/competitions', active: true, isBreadcrumb: true }
         ]
     },
     '/announcements/workshops': {
@@ -463,33 +482,10 @@ export const NAVIGATION_OPTIONS = {
             disabled: false,
             hidden: false
         },
-
-        {
-            text: "Teachers",
-            path: "/users/teachers",
-            icon: "teachers",
-            disabled: false,
-            hidden: false
-        },
-
-        {
-            text: "Staff",
-            path: "/users/staff",
-            icon: "staff",
-            disabled: false,
-            hidden: false
-        },
         {
             text: "Parents",
             path: "/users/parents",
             icon: "parents",
-            disabled: false,
-            hidden: false
-        },
-        {
-            text: "Roles",
-            path: "/users/roles",
-            icon: "roles",
             disabled: false,
             hidden: false
         }
@@ -531,23 +527,30 @@ export const NAVIGATION_OPTIONS = {
     // Announcements navigation options
     announcements: [
         {
-            text: "Holidays",
-            path: "/announcements/holidays",
+            text: "Holidays List",
+            path: "/announcements/holidays-list",
             icon: "holidays",
             disabled: false,    
             hidden: false
         },
         {
             text: "Notice Board",
-            path: "/announcements/noticeboard",
+            path: "/announcements/notice-board",
             icon: "noticeboard",
             disabled: false,
             hidden: false
         },
         {
             text: "Events",
-            path: "/announcements/competition",
-            icon: "competition",
+            path: "/announcements/events",
+            icon: "events",
+            disabled: false,
+            hidden: false
+        },
+        {
+            text: "Competitions",
+            path: "/announcements/competitions",
+            icon: "competitions",
             disabled: false,
             hidden: false
         },
@@ -558,7 +561,6 @@ export const NAVIGATION_OPTIONS = {
             disabled: false,
             hidden: false
         }
-    
     ],
 
     // Chat navigation options

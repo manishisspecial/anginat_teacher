@@ -232,7 +232,45 @@ export default function TeacherNavigation() {
       setMobileExpandedDropdown(mobileExpandedDropdown === tab.id ? null : tab.id)
     } else {
       setMobileMenuOpen(false)
-      router.push(`/teacher/${tab.id}`)
+      // Navigate to the appropriate route based on tab ID using proper navigation
+      let targetPath = '/teacher/dashboard'
+      switch (tab.id) {
+        case 'teacher':
+          targetPath = '/teacher'
+          break
+        case 'classes':
+          // Get the first available classes option
+          const classesOptions = getTeacherNavigationOptions('classes')
+          targetPath = classesOptions.length > 0 ? classesOptions[0].path : '/teacher/classes'
+          break
+        case 'students':
+          // Get the first available students option
+          const studentsOptions = getTeacherNavigationOptions('students')
+          targetPath = studentsOptions.length > 0 ? studentsOptions[0].path : '/teacher/students'
+          break
+        case 'attendance':
+          targetPath = '/teacher/attendance'
+          break
+        case 'assignments':
+          // Get the first available assignments option
+          const assignmentsOptions = getTeacherNavigationOptions('assignments')
+          targetPath = assignmentsOptions.length > 0 ? assignmentsOptions[0].path : '/teacher/assignments'
+          break
+        case 'grades':
+          targetPath = '/teacher/grades'
+          break
+        case 'schedule':
+          targetPath = '/teacher/schedule'
+          break
+        case 'reports':
+          // Get the first available reports option
+          const reportsOptions = getTeacherNavigationOptions('reports')
+          targetPath = reportsOptions.length > 0 ? reportsOptions[0].path : '/teacher/reports'
+          break
+        default:
+          targetPath = '/teacher'
+      }
+      router.push(targetPath)
     }
   }
 
@@ -247,7 +285,7 @@ export default function TeacherNavigation() {
   return (
     <div className="relative sticky top-[62px] z-10">
       {/* Desktop view */}
-      <div className="hidden md:flex items-center gap-2 lg:gap-6 px-2 lg:px-4 border-b border-gray-200 bg-white shadow-md overflow-x-auto">
+      <div className="hidden sm:flex items-center gap-1 sm:gap-2 lg:gap-6 px-2 lg:px-4 border-b border-gray-200 bg-white shadow-md overflow-x-auto">
         {visibleTabs.map((tab) => (
           <div 
             key={tab.id}
@@ -261,10 +299,10 @@ export default function TeacherNavigation() {
             onClick={() => handleTabClick(tab)}
           >
             <div className="flex items-center">
-              <span className="font-medium text-sm">{tab.name}</span>
+              <span className="font-medium text-xs sm:text-sm">{tab.name}</span>
               {tab.hasDropdown && !tab.disabled && (
                 <svg 
-                  className={`ml-1 w-3 h-3 lg:w-4 lg:h-4 transition-transform duration-300 ${openDropdown === tab.id ? 'rotate-180' : ''}`} 
+                  className={`ml-1 w-3 h-3 sm:w-3 sm:h-3 lg:w-4 lg:h-4 transition-transform duration-300 ${openDropdown === tab.id ? 'rotate-180' : ''}`} 
                   fill="none" 
                   viewBox="0 0 24 24" 
                   stroke="currentColor"
@@ -282,73 +320,76 @@ export default function TeacherNavigation() {
       </div>
 
       {/* Mobile view */}
-      <div className="md:hidden flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-white shadow-md">
+      <div className="sm:hidden flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-white shadow-md relative">
         <div className={`font-medium ${activeTab ? 'text-blue-600' : 'text-gray-700'}`}>
           {activeTabLabel}
         </div>
         <button 
-          className="mobile-menu-button p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+          className="mobile-menu-button text-gray-700 focus:outline-none p-2"
           onClick={toggleMobileMenu}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {mobileMenuOpen 
+              ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+            }
           </svg>
         </button>
       </div>
 
       {/* Mobile menu dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50">
-          <div className="px-4 py-2 space-y-1">
+        <>
+          {/* Backdrop */}
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-[9998] sm:hidden" onClick={() => setMobileMenuOpen(false)} />
+          <div className="fixed sm:absolute top-[62px] left-0 right-0 bg-white shadow-md z-[9999] border-b border-gray-200 max-h-[80vh] overflow-y-auto">
             {visibleTabs.map((tab) => (
               <div key={tab.id}>
-                <div
-                  className={`mobile-menu-option flex items-center justify-between p-3 rounded-md cursor-pointer ${
+                <div 
+                  className={`mobile-menu-option px-4 py-3 flex justify-between items-center border-b border-gray-100 ${
                     tab.disabled 
-                      ? "text-gray-400 cursor-not-allowed" 
+                      ? "cursor-not-allowed text-gray-400 bg-gray-50" 
                       : activeTab === tab.id 
-                        ? "bg-blue-50 text-blue-700" 
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "bg-gray-100 text-blue-600 cursor-pointer" 
+                        : "text-gray-700 cursor-pointer"
                   }`}
                   onClick={(e) => handleMobileMenuItemClick(e, tab)}
                 >
-                  <span className="font-medium text-sm">{tab.name}</span>
+                  <span>{tab.name}</span>
                   {tab.hasDropdown && !tab.disabled && (
                     <svg 
-                      className={`w-4 h-4 transition-transform duration-300 ${mobileExpandedDropdown === tab.id ? 'rotate-180' : ''}`} 
+                      className={`w-4 h-4 transition-transform duration-300 ${mobileExpandedDropdown === tab.id ? 'rotate-90' : ''}`}
                       fill="none" 
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   )}
-                  {tab.disabled && <span className="text-xs">(soon)</span>}
+                  {tab.disabled && <span className="text-xs ml-1">(soon)</span>}
                 </div>
                 
-                {/* Mobile dropdown options */}
-                {tab.hasDropdown && mobileExpandedDropdown === tab.id && !tab.disabled && (
-                  <div className="ml-4 space-y-1">
-                    {getDropdownOptions(tab.id).map((option, index) => (
-                      <div
-                        key={index}
-                        className={`mobile-menu-option p-3 rounded-md cursor-pointer ${
-                          option.disabled 
-                            ? "text-gray-400 cursor-not-allowed" 
-                            : "text-gray-600 hover:bg-gray-50"
-                        }`}
-                        onClick={(e) => handleMobileDropdownOptionClick(e, option)}
-                      >
-                        <span className="text-sm">{option.name}</span>
-                        {option.disabled && <span className="text-xs ml-1">(soon)</span>}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                                  {/* Mobile dropdown options using unified navigation */}
+                  {tab.hasDropdown && !tab.disabled && mobileExpandedDropdown === tab.id && (
+                    <div className="bg-gray-50 border-t border-gray-100">
+                      {getDropdownOptions(tab.id).filter(option => !option.hidden).map((option) => (
+                        <div 
+                          key={option.path}
+                          className={`px-8 py-2.5 text-gray-600 border-b border-gray-100 ${
+                            option.disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:bg-gray-100'
+                          }`}
+                          onClick={(e) => handleMobileDropdownOptionClick(e, option)}
+                        >
+                          {option.name}
+                          {option.disabled && <span className="text-xs ml-1">(soon)</span>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
               </div>
             ))}
           </div>
-        </div>
+        </>
       )}
 
       {/* Desktop dropdowns */}

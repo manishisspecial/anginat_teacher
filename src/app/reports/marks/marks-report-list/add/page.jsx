@@ -126,110 +126,141 @@ export default function AddStudentMarksPage() {
 
   return (
     <PageLayout>
-      <div className="w-full max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div className="w-full max-w-md mx-auto">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 relative">
+          {/* Close button - top right corner */}
+          <button
+            onClick={handleCancel}
+            className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
           {/* Header */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="mb-6">
             <h2 className="text-xl font-semibold text-gray-900">Add Student Marks</h2>
-            <button
-              onClick={handleCancel}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Student Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="admissionNo" className="block text-sm font-medium text-gray-700 mb-2">
-                  Admission No.
-                </label>
-                <input
-                  type="text"
-                  id="admissionNo"
-                  name="admissionNo"
-                  value={formData.admissionNo}
-                  onChange={handleInputChange}
-                  placeholder="Enter admission no."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Enter name"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Admission No. Field */}
+            <div>
+              <label htmlFor="admissionNo" className="block text-sm font-medium text-gray-700 mb-2">
+                Admission No.
+              </label>
+              <input
+                type="text"
+                id="admissionNo"
+                name="admissionNo"
+                value={formData.admissionNo}
+                onChange={handleInputChange}
+                placeholder="Enter admission no."
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
             </div>
 
-            {/* Subject Marks */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-gray-900">Subject Marks</h3>
-              
-              {formData.subjects.map((subject, index) => (
-                <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Subject {index + 1}
-                    </label>
-                    <input
-                      type="text"
-                      value={subject.name}
-                      onChange={(e) => handleSubjectChange(index, 'name', e.target.value)}
-                      placeholder="Enter subject 1"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
+            {/* Name Field */}
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="Enter name"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Marks Subject {index + 1}
-                    </label>
-                    <input
-                      type="number"
-                      value={subject.marks}
-                      onChange={(e) => handleSubjectChange(index, 'marks', e.target.value)}
-                      placeholder="Enter subject 1 marks"
-                      min="0"
-                      max="100"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
+            {/* Subject 1 Field */}
+            <div>
+              <label htmlFor="subject1" className="block text-sm font-medium text-gray-700 mb-2">
+                Subject 1
+              </label>
+              <input
+                type="text"
+                id="subject1"
+                value={formData.subjects[0]?.name || ''}
+                onChange={(e) => handleSubjectChange(0, 'name', e.target.value)}
+                placeholder="Enter subject 1"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
+
+            {/* Marks Subject 1 Field */}
+            <div>
+              <label htmlFor="marks1" className="block text-sm font-medium text-gray-700 mb-2">
+                Marks Subject 1
+              </label>
+              <input
+                type="number"
+                id="marks1"
+                value={formData.subjects[0]?.marks || ''}
+                onChange={(e) => handleSubjectChange(0, 'marks', e.target.value)}
+                placeholder="Enter subject 1 marks"
+                min="0"
+                max="100"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
+
+            {/* Add Subject Button */}
+            <button
+              type="button"
+              onClick={addSubject}
+              className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Add Subject
+            </button>
+
+            {/* Additional Subjects (if any) */}
+            {formData.subjects.slice(1).map((subject, index) => (
+              <div key={index + 1} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Subject {index + 2}
+                  </label>
+                  <input
+                    type="text"
+                    value={subject.name}
+                    onChange={(e) => handleSubjectChange(index + 1, 'name', e.target.value)}
+                    placeholder={`Enter subject ${index + 2}`}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
                 </div>
-              ))}
 
-              {/* Add Subject Button */}
-              <button
-                type="button"
-                onClick={addSubject}
-                className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                Add Subject
-              </button>
-            </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Marks Subject {index + 2}
+                  </label>
+                  <input
+                    type="number"
+                    value={subject.marks}
+                    onChange={(e) => handleSubjectChange(index + 1, 'marks', e.target.value)}
+                    placeholder={`Enter subject ${index + 2} marks`}
+                    min="0"
+                    max="100"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+              </div>
+            ))}
 
             {/* Calculated Values */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Total
@@ -271,11 +302,7 @@ export default function AddStudentMarksPage() {
             <div className="pt-4">
               <button
                 type="submit"
-                onClick={(e) => {
-                  console.log('Submit button clicked')
-                  alert('Submit button clicked! Processing form...')
-                }}
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-base"
               >
                 Add student marks
               </button>

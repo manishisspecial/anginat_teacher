@@ -102,7 +102,7 @@ export default function Topbar() {
   }
 
   const getDisplayName = () => {
-    if (!user) return "Admin"
+    if (!user) return "Teacher"
     
     // Use username first, then fall back to email prefix
     if (user.username) {
@@ -110,7 +110,7 @@ export default function Topbar() {
     } else if (user.email) {
       return user.email.split("@")[0]
     }
-    return "Admin"
+    return "Teacher"
   }
 
   const unreadCount = notifications.filter(n => !n.read).length

@@ -95,7 +95,9 @@ const ViewParentPage = ({ params }) => {
             <div className="w-full max-w-12xl h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-200" />
 
             <div className="p-6">
-                {renderActiveComponent()}
+                <div className="bg-white rounded-lg shadow p-6">
+                    {renderActiveComponent()}
+                </div>
             </div>
         </PageLayout>
     )

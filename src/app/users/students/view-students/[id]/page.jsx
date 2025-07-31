@@ -85,11 +85,12 @@ const ViewStudentPage = ({ params }) => {
 
     return (
         <PageLayout customPadding='p-0' rightContent={<RightComponent />}>
-            <div className="flex px-6 py-3">
+            {/* Tabs - Mobile responsive */}
+            <div className="flex flex-wrap px-4 sm:px-6 py-3 overflow-x-auto">
                 {tabs.map((tab) => (
                     <button
                         key={tab.key}
-                        className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                        className={`px-3 sm:px-4 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
                             activeTab === tab.key 
                                 ? 'text-blue-600 bg-blue-50 border-b-2 border-blue-600' 
                                 : 'text-gray-600 hover:text-gray-900'
@@ -103,8 +104,27 @@ const ViewStudentPage = ({ params }) => {
 
             <div className="w-full max-w-12xl h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-200" />
 
-            <div className="p-6">
-                {renderActiveComponent()}
+            <div className="p-4 sm:p-6">
+                <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
+                    {/* Left Sidebar - Profile Section - Only show for Personal Information */}
+                    {activeTab === 'personalInformation' && (
+                        <div className="w-full lg:w-80">
+                            <div className="bg-white rounded-lg shadow p-4 sm:p-6 min-h-[300px] sm:min-h-[400px]">
+                                <h3 className="text-lg font-semibold text-gray-900 mb-4">Profile</h3>
+                                <div className="space-y-2">
+                                    {/* Empty content area as shown in the design */}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Right Main Content */}
+                    <div className={`${activeTab === 'personalInformation' ? 'flex-1' : 'w-full'}`}>
+                        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+                            {renderActiveComponent()}
+                        </div>
+                    </div>
+                </div>
             </div>
         </PageLayout>
     )
