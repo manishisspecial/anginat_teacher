@@ -90,14 +90,14 @@ export default function ChatPage() {
 
   return (
     <PageLayout>
-      <div className="h-[calc(100vh-200px)] bg-gray-100 rounded-lg overflow-hidden">
+      <div className="h-[calc(100vh-40px)] bg-gray-100 rounded-lg overflow-hidden">
         {/* Desktop Layout */}
         <div className="hidden md:flex h-full">
           {/* Left Sidebar - All Chats */}
           <div className="w-80 bg-white border-r border-gray-200">
             <div className="p-4">
               <h3 className="text-lg font-semibold text-black mb-4">All Chats</h3>
-              <div className="space-y-3">
+              <div className="space-y-3 max-h-[calc(100vh-160px)] overflow-y-auto">
                 {chatList.map((chat) => (
                   <div
                     key={chat.id}
